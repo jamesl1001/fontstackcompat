@@ -17,12 +17,7 @@ var Fontdetector = function() {
         b.appendChild(s);
         defaultWidth[families[i]] = s.offsetWidth;
         defaultHeight[families[i]] = s.offsetHeight;
-        b.removeChild(s);
-    }
-
-    for (var i in families) {
-        s.style.fontFamily = font + ', ' + families[i];
-        b.appendChild(s);
+        s.style.fontFamily = font + ',' + families[i];
         if (s.offsetWidth != defaultWidth[families[i]] || s.offsetHeight != defaultHeight[families[i]]) {
             match++;
         }
@@ -39,4 +34,12 @@ var Fontdetector = function() {
     }
     
     console.log(doesMatch());
+
+    /*
+    Usage should be one of the following:
+        if(mangal == true)          // true = probably
+        if(mangal == "probably")    // match by keyword
+        if(mangal == 3)             // same as above
+        if(mangal > 1 )             // match maybe and probably
+    */
 }();
