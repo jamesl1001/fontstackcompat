@@ -4,24 +4,24 @@ var Fontdetector = function() {
         testStr       = "भारतकेदौरेपरआएडेविडकैमरननेकहाहैकिमहारानीएलिजाबेथप्रथमक",
         testSize      = "100px",
         b             = document.body;
-        defaultWidth  = {},
-        defaultHeight = {},
+        dW            = [],
+        dH            = [],
         match         = 0;
     
-    var s = document.createElement("span");
-    s.style.fontSize = testSize;
-    s.innerHTML = testStr;
+    var span = document.createElement("span");
+    span.style.fontSize = testSize;
+    span.innerHTML = testStr;
 
     for (var i in families) {
-        s.style.fontFamily = families[i];
-        b.appendChild(s);
-        defaultWidth[families[i]] = s.offsetWidth;
-        defaultHeight[families[i]] = s.offsetHeight;
-        s.style.fontFamily = font + ',' + families[i];
-        if (s.offsetWidth != defaultWidth[families[i]] || s.offsetHeight != defaultHeight[families[i]]) {
+        span.style.fontFamily = families[i];
+        b.appendChild(span);
+        dW[i] = span.offsetWidth;
+        dH[i] = span.offsetHeight;
+        span.style.fontFamily = font + ',' + families[i];
+        if (span.offsetWidth != dW[i] || span.offsetHeight != dH[i]) {
             match++;
         }
-        b.removeChild(s);
+        b.removeChild(span);
     }
 
     function doesMatch() {    
@@ -41,5 +41,11 @@ var Fontdetector = function() {
         if(mangal == "probably")    // match by keyword
         if(mangal == 3)             // same as above
         if(mangal > 1 )             // match maybe and probably
+
+    Font object:
+        font = {
+            mangal: "probably",
+            arial: "definitely"
+        }
     */
 }();
