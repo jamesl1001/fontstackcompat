@@ -1,7 +1,7 @@
-fontdetector v0.1
-=================
+fontstackcompat v0.1
+====================
 
-A script to check whether specific fonts are installed on the user's system for use in a browser.
+A script to check whether fonts specified in the CSS font stack are installed on the user's system
 
 Features:
 - Multiple levels of confidence
