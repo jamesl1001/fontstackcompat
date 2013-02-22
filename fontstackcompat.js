@@ -1,39 +1,73 @@
 var Fontstackcompat = function() {
-    var font          = "Mangal",
-        families      = ["sans-serif", "serif", "monospace"],
-        testStr       = "भारतकेदौरेपरआएडेविडकैमरननेकहाहैकिमहारानीएलिजाबेथप्रथमक",
+    var families      = ["sans-serif", "serif", "monospace"],
+        allFamilies   = ["sans-serif", "serif", "monospace", "cursive", "fantasy"],
+        testStr       = "wwwwwmmmmmllllliiiii",
         testSize      = "100px",
         b             = document.body;
         dW            = [],
         dH            = [],
-        match         = 0;
-    
-    var span = document.createElement("span");
-    span.style.fontSize = testSize;
-    span.innerHTML = testStr;
+        match         = 0,
+        font          = {};
 
-    for (var i in families) {
-        span.style.fontFamily = families[i];
-        b.appendChild(span);
-        dW[i] = span.offsetWidth;
-        dH[i] = span.offsetHeight;
-        span.style.fontFamily = font + ',' + families[i];
-        if (span.offsetWidth != dW[i] || span.offsetHeight != dH[i]) {
-            match++;
+    var parseFontStack = function() {
+        fontStack     = window.getComputedStyle(document.body).getPropertyValue("font-family");
+        fontStackArr  = fontStack.split(", ");
+
+        console.log("CSS font stack: ");
+        console.log(fontStackArr);
+        for (var f in allFamilies) {
+            for (var i = fontStackArr.length - 1; i >= 0; i--) {
+                if (fontStackArr[i] === allFamilies[f]) {
+                    fontStackArr.splice(i, 1);
+                }
+            }
         }
-        b.removeChild(span);
+        console.log("After removing font family: ");
+        console.log(fontStackArr);
+    }();
+
+    for (var i in fontStackArr) {
+        fontMatch(fontStackArr[i], testStr);
     }
 
-    function doesMatch() {    
+    function fontMatch(testFont, testStr) {
+        var span = document.createElement("span");
+        span.style.fontSize = testSize;
+        span.innerHTML = testStr;
+
+        for (var i in families) {
+            span.style.fontFamily = families[i];
+            b.appendChild(span);
+            dW[i] = span.offsetWidth;
+            dH[i] = span.offsetHeight;
+            span.style.fontFamily = testFont + ',' + families[i];
+            if (span.offsetWidth != dW[i] || span.offsetHeight != dH[i]) {
+                match++;
+            }
+            b.removeChild(span);
+        }
+
+        var testFontLC = testFont.toLowerCase();
+   
         switch(match) {
-            case 0: return "no";
-            case 1: return "unlikely";
-            case 2: return "maybe";
-            case 3: return "probably";
+            case 0:
+                font[testFontLC] = "no";
+                break;
+            case 1:
+                font[testFontLC] = "unlikely";
+                break;
+            case 2:
+                font[testFontLC] = "maybe";
+                break;
+            case 3:
+                font[testFontLC] = "probably";
+                break;
         }
-    }
-    
-    console.log(doesMatch());
+
+        match = 0;
+    };
+
+    console.log(font);
 
     /*
     Usage should be one of the following:
