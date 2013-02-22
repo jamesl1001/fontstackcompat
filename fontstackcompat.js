@@ -1,4 +1,4 @@
-var Fontdetector = function() {
+var Fontstackcompat = function() {
     var font          = "Mangal",
         families      = ["sans-serif", "serif", "monospace"],
         testStr       = "भारतकेदौरेपरआएडेविडकैमरननेकहाहैकिमहारानीएलिजाबेथप्रथमक",
