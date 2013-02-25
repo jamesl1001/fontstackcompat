@@ -40,6 +40,7 @@ var Fontstackcompat = function() {
             b.appendChild(span);
             dW[i] = span.offsetWidth;
             dH[i] = span.offsetHeight;
+
             span.style.fontFamily = testFont + ',' + families[i];
             if (span.offsetWidth != dW[i] || span.offsetHeight != dH[i]) {
                 match++;
@@ -67,7 +68,11 @@ var Fontstackcompat = function() {
         match = 0;
     };
 
-    console.log(font);
+    for (property in font) {
+        document.write(property + ': ' + font[property]+';<br>');
+    }
+
+    alert(window.getComputedStyle(document.body).getPropertyValue("font-family"));
 
     /*
     Usage should be one of the following:
